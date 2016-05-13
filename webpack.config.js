@@ -1,5 +1,6 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+var WebpackNotifierPlugin = require('webpack-notifier');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 
@@ -10,6 +11,10 @@ module.exports = {
     filename: 'index.js'
   },
   plugins: [
+    new WebpackNotifierPlugin({
+      title: 'Webpack',
+      alwaysNotify: true
+    }),
     new ExtractTextPlugin('../css/style.css'),
     new BrowserSyncPlugin({
       host: 'localhost',
@@ -38,6 +43,9 @@ module.exports = {
     ]
   },
   postcss: function () {
-      return [precss, autoprefixer];
+      return [
+        precss,
+        autoprefixer({ browsers: ['last 2 versions'] })
+      ];
   }
 };
