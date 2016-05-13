@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/tomekbuszewski/Helpers#readme",
   "devDependencies": {
+    "autoprefixer": "^6.3.6",
     "babel-core": "^6.8.0",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
@@ -29,6 +30,8 @@
     "eslint": "^2.9.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "node-sass": "^3.7.0",
+    "postcss-loader": "^0.9.1",
+    "precss": "^1.4.0",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0"

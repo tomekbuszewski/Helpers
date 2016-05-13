@@ -1,5 +1,7 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: './babel/index.js',
@@ -30,9 +32,12 @@ module.exports = {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
           'style',
-          'css?sourceMap!sass?sourceMap'
+          'css?sourceMap!sass?sourceMap!postcss-loader'
         )
       }
     ]
+  },
+  postcss: function () {
+      return [precss, autoprefixer];
   }
 };
