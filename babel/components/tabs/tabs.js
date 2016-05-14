@@ -19,6 +19,7 @@ export default class Tabs {
     Array.prototype.forEach.call(this.tabContainer, (tabs) => {
       let items = [];
       let buttons = '';
+      let counter = 0;
 
       tabs.classList.add(this.classNames);
 
@@ -28,6 +29,11 @@ export default class Tabs {
         tab.setAttribute('id', __.slug(title));
         tab.classList.add(this.singleTab);
         items.push({ 'id': __.slug(title), 'title': title });
+
+        if (counter === 0) {
+          tab.classList.add(this.singleActiveTab);
+          counter++;
+        }
       }); // end items array
 
       const nav = document.createElement('nav');
