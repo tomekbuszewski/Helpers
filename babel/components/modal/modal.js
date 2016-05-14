@@ -93,6 +93,7 @@ export default class Modal {
   }
 
   listenForClose() {
+    // Closing with button
     const buttons = document.querySelectorAll('[modal-close]');
 
     Array.prototype.forEach.call(buttons, (button) => {
@@ -101,6 +102,19 @@ export default class Modal {
 
         this.close(button.parentNode.parentNode.getAttribute('id'));
       });
+    });
+
+    // Closing with esc button
+    window.addEventListener('keydown', (k) => {
+      if (k.keyCode === 27) this.close();
+    });
+
+    // Closing with clicking on body
+    document.addEventListener('click', (e) => {
+      if (e.target.parentNode.classList.value.indexOf('modal') === -1
+          && e.target.hasAttribute('modal-trigger') === false) {
+        this.close();
+      }
     });
   }
 
