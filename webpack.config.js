@@ -3,12 +3,22 @@ var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 var WebpackNotifierPlugin = require('webpack-notifier');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
+var path = require('path');
+
+var sassLoaders = [
+  'css-loader',
+  'postcss-loader',
+  'sass-loader?includePaths[]=' + path.resolve(__dirname, './sass')
+]
 
 module.exports = {
   entry: './babel/index.js',
   output: {
     path: 'js',
     filename: 'index.js'
+  },
+  sassLoader: {
+    includePaths: path.resolve(__dirname, './sass')
   },
   plugins: [
     new WebpackNotifierPlugin({
@@ -35,10 +45,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css?sourceMap!sass?sourceMap!postcss-loader'
-        )
+        loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
       }
     ]
   },

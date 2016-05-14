@@ -1,0 +1,21 @@
+//——————————————————————————————————————————————————//
+// Mixins
+//——————————————————————————————————————————————————//
+// REM font size
+//——————————————————————————————————————————————————
+
+@function calculateRem($size) {
+  $remSize: $size / $base-font-size;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+// Columns
+//——————————————————————————————————————————————————
+
+@mixin columns($count) {
+  column-count: $count;
+}

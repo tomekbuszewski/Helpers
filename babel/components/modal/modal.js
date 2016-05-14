@@ -5,94 +5,121 @@ Apart from this, you can open your modal with url using it's id as a hash,
 eg: http://localhost#modal/loginModal
 */
 
+import HelpMe from '../helpers/helpers';
+const __ = new HelpMe();
 
 export default class Modal {
   constructor() {
     require('./modal.scss');
-    this.activeClass = 'modal--active';
-    this.siteActiveClass = 'site--with-modal';
-    // this.showTimeout = 400;
-    //
-    // this.modals = document.getElementsByClassName('modal');
-    // this.site = document.getElementsByClassName('site')[0];
-    // this.modalTrigger = document.getElementsByClassName('modal-trigger');
-    // this.modalCloseButton = document.getElementsByClassName('modal__close');
+
+    this.modals = document.querySelectorAll('modal-window');
+    this.classNames = 'modal';
+    this.activeClassName = 'modal--active';
+
+    this.modalTriggers = document.querySelectorAll('[modal-trigger]');
+
+    this.format();
+
+    __.onEvents([window], 'load hashchange', () => { this.listenForHash(); });
   }
-  //
-  // initialize() {
-  //   this.listenForClick();
-  //   this.listenForHash();
-  //   window.addEventListener('popstate', () => { this.listenForHash(); });
-  // }
-  //
-  // setHistory(id = '', callback = null) {
-  //   history.replaceState('', document.title, window.location.pathname + id);
-  //   if (callback !== null) callback();
-  // }
-  //
-  // listenForClick() {
-  //   Array.prototype.forEach.call(this.modalTrigger, (trigger) => {
-  //     trigger.addEventListener('click', (e) => {
-  //       e.preventDefault();
-  //
-  //       const target = trigger.getAttribute('modal');
-  //
-  //       this.openModal(target);
-  //     });
-  //   });
-  // }
-  //
-  // listenForHash() {
-  //   const temphash = window.location.hash;
-  //
-  //   if (temphash && temphash.indexOf('#modal') > -1) {
-  //     this.openModal(temphash);
-  //   }
-  // }
-  //
-  // openModal(target) {
-  //   const id = target.replace('#modal/', '');
-  //   const modal = document.getElementById(id);
-  //   poly.addClass(modal, this.activeClass);
-  //   this.setHistory(target, () => {
-  //     setTimeout(() => { poly.addClass(this.site, this.siteActiveClass); }, this.showTimeout);
-  //     this.listenForClose();
-  //   });
-  // }
-  //
-  // listenForClose() {
-  //   // With button
-  //   Array.prototype.forEach.call(this.modalCloseButton, (btn) => {
-  //     btn.addEventListener('click', (e) => {
-  //       e.preventDefault();
-  //
-  //       this.closeAll();
-  //     });
-  //   });
-  //
-  //   // With esc
-  //   this.site.addEventListener('keydown', (key) => {
-  //     if (key.keyCode === 27) {
-  //       this.closeAll();
-  //     }
-  //   });
-  //
-  //   // With clicking on site
-  //   this.site.addEventListener('click', () => {
-  //     if (poly.hasClass(this.site, this.siteActiveClass)) {
-  //       this.closeAll();
-  //     }
-  //   });
-  // }
-  //
-  // closeAll() {
-  //   const activeModals = document.getElementsByClassName(this.activeClass);
-  //
-  //   Array.prototype.forEach.call(activeModals, (modal) => {
-  //     poly.removeClass(modal, this.activeClass);
-  //   });
-  //
-  //   poly.removeClass(this.site, this.siteActiveClass);
-  //   this.setHistory();
-  // }
+
+  format() {
+    Array.prototype.forEach.call(this.modals, (modal) => {
+      const title = modal.getAttribute('title');
+
+      modal.classList.add(this.classNames);
+
+      modal.setAttribute('id', __.slug(title)); /* Created ID */
+
+      this.createHTML(modal, title) /* Creating inner html */
+    });
+  }
+
+  createHTML(modal, name) {
+    const inner = modal.innerHTML; /* Get current content */
+    modal.innerHTML = '';
+
+    // Elements to append
+    const wrapper = document.createElement('div');
+    wrapper.className = 'modal__wrapper';
+
+    const button = document.createElement('button');
+    button.className = 'modal__close';
+    button.setAttribute('modal-close', '');
+
+    const title = document.createElement('h4');
+    title.className = 'modal__title';
+    title.innerHTML = name;
+
+    const content = document.createElement('div');
+    content.className = 'modal__content';
+    content.innerHTML = inner;
+
+    // Building modal
+    modal.appendChild(wrapper);
+    modal.getElementsByClassName('modal__wrapper')[0].appendChild(button);
+    modal.getElementsByClassName('modal__wrapper')[0].appendChild(title);
+    modal.getElementsByClassName('modal__wrapper')[0].appendChild(content);
+
+    this.listenForClick();
+    this.listenForClose();
+  }
+
+  setHistory(id = null) {
+    if (id) {
+      window.history.pushState(null, null, `${document.location.origin}#modal/${id}`);
+    } else {
+      window.history.pushState(null, null, document.location.origin);
+    }
+  }
+
+  open(modal) {
+    this.close();
+
+    document.getElementById(modal).classList.add(this.activeClassName);
+    this.setHistory(modal);
+  }
+
+  close(modal = null) {
+    if (modal) {
+      document.getElementById(modal).classList.remove(this.activeClassName);
+    } else {
+      Array.prototype.forEach.call(this.modals, (modal) => {
+        modal.classList.remove(this.activeClassName);
+      });
+    }
+
+    this.setHistory();
+  }
+
+  listenForClose() {
+    const buttons = document.querySelectorAll('[modal-close]');
+
+    Array.prototype.forEach.call(buttons, (button) => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        this.close(button.parentNode.parentNode.getAttribute('id'));
+      });
+    });
+  }
+
+  listenForClick() {
+    Array.prototype.forEach.call(this.modalTriggers, (trigger) => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const modal = trigger.getAttribute('modal-trigger');
+        this.open(modal);
+      });
+    });
+  }
+
+  listenForHash() {
+    const hash = window.location.hash;
+
+    if (hash && hash.indexOf('modal/') > -1) {
+      this.open(hash.replace('#modal/', ''));
+    }
+  }
 }
