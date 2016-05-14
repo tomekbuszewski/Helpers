@@ -120,6 +120,8 @@ export default class Modal {
 
     if (hash && hash.indexOf('modal/') > -1) {
       this.open(hash.replace('#modal/', ''));
+    } else {
+      this.close();
     }
   }
 }
