@@ -24,7 +24,7 @@ export default class Modal {
   }
 
   format() {
-    Array.prototype.forEach.call(this.modals, (modal) => {
+    __.forEach(this.modals, (modal) => {
       const title = modal.getAttribute('title');
 
       modal.classList.add(this.classNames);
@@ -84,7 +84,7 @@ export default class Modal {
     if (modal) {
       document.getElementById(modal).classList.remove(this.activeClassName);
     } else {
-      Array.prototype.forEach.call(this.modals, (modal) => {
+      __.forEach(this.modals, (modal) => {
         modal.classList.remove(this.activeClassName);
       });
     }
@@ -96,7 +96,7 @@ export default class Modal {
     // Closing with button
     const buttons = document.querySelectorAll('[modal-close]');
 
-    Array.prototype.forEach.call(buttons, (button) => {
+    __.forEach(buttons, (button) => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
 
@@ -119,7 +119,7 @@ export default class Modal {
   }
 
   listenForClick() {
-    Array.prototype.forEach.call(this.modalTriggers, (trigger) => {
+    __.forEach(this.modalTriggers, (trigger) => {
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
 

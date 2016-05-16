@@ -16,14 +16,14 @@ export default class Tabs {
   }
 
   createNav() {
-    Array.prototype.forEach.call(this.tabContainer, (tabs) => {
+    __.forEach(this.tabContainer, (tabs) => {
       let items = [];
       let buttons = '';
       let counter = 0;
 
       tabs.classList.add(this.classNames);
 
-      Array.prototype.forEach.call(tabs.children, (tab) => {
+      __.forEach(tabs.children, (tab) => {
         const title = tab.getAttribute('title');
 
         tab.setAttribute('id', __.slug(title));
@@ -53,7 +53,7 @@ export default class Tabs {
   listenForClick(container) {
     const buttons = container.querySelectorAll(`.${this.buttonClass}`);
 
-    Array.prototype.forEach.call(buttons, (button) => {
+    __.forEach(buttons, (button) => {
       const id = button.getAttribute('tab-id');
 
       button.addEventListener('click', (e) => {
@@ -71,7 +71,7 @@ export default class Tabs {
   }
 
   closeTabs(container) {
-    Array.prototype.forEach.call(container.querySelectorAll(`.${this.singleTab}`), (tab) => {
+    __.forEach(container.querySelectorAll(`.${this.singleTab}`), (tab) => {
       tab.classList.remove(this.singleActiveTab);
     })
   }

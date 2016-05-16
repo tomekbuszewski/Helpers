@@ -3,10 +3,18 @@ export default class HelpMe {
 		return className.replace('.', '');
 	}
 
+  forEach(array, cb) {
+    /* Method inspired by Todd Motto; https://toddmotto.com/ditch-the-array-foreach-call-nodelist-hack/ */
+    const len = array.length;
+    for (let i = 0; i < len; i++) {
+      cb.call(null, array[i]);
+    }
+  }
+
 	addClass(element, className) {
 		const els = document.querySelectorAll(element);
 
-		Array.prototype.forEach.call(els, (i) => {
+		this.forEach(els, (i) => {
 			const classes = i.classList.value.split(' ');
 			const classPosition = classes.indexOf(this.className(className));
 			if (classPosition === -1) {
@@ -36,8 +44,8 @@ export default class HelpMe {
 	onEvents(what, events, callback) {
 		const ev = events.split(' ');
 
-    Array.prototype.forEach.call(what, (w) => {
-      Array.prototype.forEach.call(ev, (e) => {
+    this.forEach(what, (w) => {
+      this.forEach(ev, (e) => {
         w.addEventListener(e, callback);
       });
     });
@@ -46,8 +54,8 @@ export default class HelpMe {
 	offEvents(what, events, callback) {
 		const ev = events.split(' ');
 
-    Array.prototype.forEach.call(what, (w) => {
-      Array.prototype.forEach.call(ev, (e) => {
+    this.forEach(what, (w) => {
+      this.forEach(ev, (e) => {
         w.removeEventListener(e, callback);
       });
     });
