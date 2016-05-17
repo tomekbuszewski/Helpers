@@ -35,31 +35,19 @@ export default class Modal {
     });
   }
 
-  createHTML(modal, name) {
+  wrap(item, title, content) {
+    item.innerHTML = `
+<div class="modal__wrapper">
+  <button class="modal__close" modal-close></button>
+  <h4 class="modal__title">${title}</h4>
+  <div class="modal__content">${content}</strong></div>
+</div>
+    `;
+  }
+
+  createHTML(modal, title) {
     const inner = modal.innerHTML; /* Get current content */
-    modal.innerHTML = '';
-
-    // Elements to append
-    const wrapper = document.createElement('div');
-    wrapper.className = 'modal__wrapper';
-
-    const button = document.createElement('button');
-    button.className = 'modal__close';
-    button.setAttribute('modal-close', '');
-
-    const title = document.createElement('h4');
-    title.className = 'modal__title';
-    title.innerHTML = name;
-
-    const content = document.createElement('div');
-    content.className = 'modal__content';
-    content.innerHTML = inner;
-
-    // Building modal
-    modal.appendChild(wrapper);
-    modal.getElementsByClassName('modal__wrapper')[0].appendChild(button);
-    modal.getElementsByClassName('modal__wrapper')[0].appendChild(title);
-    modal.getElementsByClassName('modal__wrapper')[0].appendChild(content);
+    this.wrap(modal, title, inner);
 
     this.listenForClick();
     this.listenForClose();
