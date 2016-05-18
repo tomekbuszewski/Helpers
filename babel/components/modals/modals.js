@@ -8,9 +8,9 @@ eg: http://localhost#modal/loginModal
 import HelpMe from '../helpers/helpers';
 const __ = new HelpMe();
 
-export default class Modal {
+export default class Modals {
   constructor() {
-    require('./modal.scss');
+    require('./modals.scss');
 
     this.modals = document.querySelectorAll('modal-window');
     this.classNames = 'modal';
@@ -19,6 +19,8 @@ export default class Modal {
     this.modalTriggers = document.querySelectorAll('[modal-trigger]');
 
     this.format();
+
+    console.log(this.modals);
 
     __.onEvents([window], 'load hashchange', () => { this.listenForHash(); });
   }
@@ -63,14 +65,17 @@ export default class Modal {
 
   open(modal) {
     this.close();
-
-    document.getElementById(modal).classList.add(this.activeClassName);
+    __.forEach(this.modals, (m) => {
+      if (m.getAttribute('id') === modal) m.classList.add(this.activeClassName);
+    });
     this.setHistory(modal);
   }
 
   close(modal = null) {
     if (modal) {
-      document.getElementById(modal).classList.remove(this.activeClassName);
+      __.forEach(this.modals, (m) => {
+        if (m.getAttribute('id') === modal) m.classList.remove(this.activeClassName);
+      });
     } else {
       __.forEach(this.modals, (modal) => {
         modal.classList.remove(this.activeClassName);
