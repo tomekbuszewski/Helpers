@@ -1,7 +1,7 @@
 import HelpMe from '../helpers/helpers';
 const __ = new HelpMe();
 
-export default class Tabs {
+class Tabs {
   constructor() {
     require('./tabs.scss');
 
@@ -76,3 +76,6 @@ export default class Tabs {
     })
   }
 }
+
+const _tabs = new Tabs();
+export default _tabs;

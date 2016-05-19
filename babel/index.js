@@ -1,7 +1,5 @@
 require('../sass/style.scss');
 
-import Modals from './components/modals/modals';
-const modals = new Modals();
+import _modals from './components/modals/modals';
 
-import Tabs from './components/tabs/tabs';
-const tabs = new Tabs();
+import _tabs from './components/tabs/tabs';

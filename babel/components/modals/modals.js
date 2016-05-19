@@ -8,7 +8,7 @@ eg: http://localhost#modal/loginModal
 import HelpMe from '../helpers/helpers';
 const __ = new HelpMe();
 
-export default class Modals {
+class Modals {
   constructor() {
     require('./modals.scss');
 
@@ -132,3 +132,6 @@ export default class Modals {
     }
   }
 }
+
+const _modals = new Modals();
+export default _modals;
