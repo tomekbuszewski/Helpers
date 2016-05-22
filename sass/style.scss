@@ -1,2 +1,20 @@
 @import 'seer';
-/* @import 'theme'; */
+@import 'theme';
+
+/* Temporary styles to test scrolling */
+.scroll {
+  width: 100%;
+  min-height: 100vh;
+
+  &__element {
+    height: 100vh;
+    transition: 2s opacity;
+    position: relative;
+    transform: translateZ(0);
+    opacity: 0;
+
+    &.visible {
+      opacity: 1;
+    }
+  }
+}

@@ -20,8 +20,6 @@ class Modals {
 
     this.format();
 
-    console.log(this.modals);
-
     __.onEvents([window], 'load hashchange', () => { this.listenForHash(); });
   }
 
