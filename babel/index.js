@@ -12,4 +12,4 @@ import _modals from './components/modals/modals';
 import _tabs from './components/tabs/tabs';
 
 import _scrolling from './components/scrolling/scrolling';
-_scrolling.add(document.querySelectorAll('.scroll__element'), function() { _scrolling.viewport(this.item); });
+_scrolling.add(document.querySelectorAll('.scroll__element'), function() { translate(this.item); });
