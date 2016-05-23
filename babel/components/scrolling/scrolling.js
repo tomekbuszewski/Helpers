@@ -4,29 +4,53 @@ const helpers = new HelpMe();
 class Scrolling {
   constructor() {
     this.items = [];
-    this.itemsCache = [];
+    this.windowHeight = window.innerHeight;
+
+    this.classes = {
+      visible : '-visible',
+      invisible: '-invisible'
+    }
   }
 
   build() {
-    window.addEventListener('scroll', window.requestAnimationFrame(_scrolling.scroll));
+    window.addEventListener('scroll', _scrolling.scroll);
   }
 
   scroll() {
-    setInterval(() => { helpers.forEach(_scrolling.items, (i) => {
-      i.cb();
-    }) }, 10);
-    window.requestAnimationFrame(_scrolling.scroll);
+    helpers.forEach(_scrolling.items, (i) => {
+      if (_scrolling.viewport(i.item)) {
+        if (i.cb !== null) { i.cb(); }
+      }
+    });
   }
 
   viewport(item) {
-    console.log(item.getBoundingClientRect());
+    let ret = null;
+
+    // If is even visible
+    if ((this.windowHeight - item.getBoundingClientRect().top) > 0) {
+      item.classList.add(this.classes.visible);
+      item.classList.remove(this.classes.invisible);
+      ret = true;
+    }
+
+    // If is hidden
+    if (item.getBoundingClientRect().bottom <= 0 || item.getBoundingClientRect().top >= this.windowHeight) {
+      item.classList.add(this.classes.invisible);
+      item.classList.remove(this.classes.visible);
+      ret = false;
+    }
+
+    console.log(`top: ${item.getBoundingClientRect().top}, bottom: ${item.getBoundingClientRect().bottom}`);
+
+    return ret;
   }
 
   watchItems() {
     if (this.items.length) this.build();
   }
 
-  add(item, cb) {
+  add(item, cb = null) {
     helpers.forEach(item, (i) => {
       let itemCollection = {};
       itemCollection.item = i;

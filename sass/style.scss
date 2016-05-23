@@ -4,7 +4,16 @@
 /* Temporary styles to test scrolling */
 .scroll {
   width: 100%;
-  min-height: 100vh;
+  min-height: 400vh;
+
+  &__inner {
+    width: 100px;
+    height: 100px;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+    background: black;
+    position: absolute;
+  }
 
   &__element {
     width: 100%;
