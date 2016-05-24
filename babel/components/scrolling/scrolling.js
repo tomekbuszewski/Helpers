@@ -5,6 +5,7 @@ class Scrolling {
   constructor() {
     this.items = [];
     this.windowHeight = window.innerHeight;
+    this.offset = 200;
 
     this.classes = {
       visible : '-visible',
@@ -19,7 +20,9 @@ class Scrolling {
   scroll() {
     helpers.forEach(_scrolling.items, (i) => {
       if (_scrolling.viewport(i.item)) {
-        if (i.cb !== null) { i.cb(); }
+        if (i.cb !== null) {
+          i.cb();
+        }
       }
     });
   }
@@ -28,20 +31,18 @@ class Scrolling {
     let ret = null;
 
     // If is even visible
-    if ((this.windowHeight - item.getBoundingClientRect().top) > 0) {
+    if ((this.windowHeight - item.getBoundingClientRect().top) >= `-${this.offset}`) {
       item.classList.add(this.classes.visible);
       item.classList.remove(this.classes.invisible);
       ret = true;
     }
 
     // If is hidden
-    if (item.getBoundingClientRect().bottom <= 0 || item.getBoundingClientRect().top >= this.windowHeight) {
+    if (item.getBoundingClientRect().bottom <= 0 || item.getBoundingClientRect().top - this.offset >= this.windowHeight) {
       item.classList.add(this.classes.invisible);
       item.classList.remove(this.classes.visible);
       ret = false;
     }
-
-    console.log(`top: ${item.getBoundingClientRect().top}, bottom: ${item.getBoundingClientRect().bottom}`);
 
     return ret;
   }
