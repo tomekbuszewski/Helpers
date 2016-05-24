@@ -20,6 +20,9 @@ module.exports = {
   sassLoader: {
     includePaths: path.resolve(__dirname, './sass')
   },
+  externals: {
+    'TweenLite': 'TweenLite'
+  },
   plugins: [
     new WebpackNotifierPlugin({
       title: 'Webpack',

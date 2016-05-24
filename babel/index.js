@@ -6,12 +6,15 @@ import _tabs from './components/tabs/tabs';
 
 import _scrolling from './components/scrolling/scrolling';
 
-const TweenMax = require('gsap/src/uncompressed/TweenMax.js');
+const TweenLite = require('gsap/src/uncompressed/TweenLite.js');
+require('gsap/src/uncompressed/plugins/CSSPlugin.js');
 
 _scrolling.add(document.querySelectorAll('.scroll__inner'), function() {
-  var doc = document.documentElement;
-  var left = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-  var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
-  let offset = top * -.5;
-  TweenMax.to(this.item, .01, { y: offset });
+  let offset = _scrolling.scrollTop * -.5;
+  TweenLite.to(this.item, .01, { y: -offset, ease: Power0.easeNone });
+});
+
+_scrolling.add(document.querySelectorAll('.scroll__inner2'), function() {
+  let offset = _scrolling.scrollTop * -.25;
+  TweenLite.to(this.item, .01, { y: -offset, ease: Power0.easeNone });
 });

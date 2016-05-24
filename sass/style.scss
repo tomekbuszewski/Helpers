@@ -15,6 +15,15 @@
     position: absolute;
   }
 
+  &__inner2 {
+    width: 100px;
+    height: 100px;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+    background: red;
+    position: absolute;
+  }
+
   &__element {
     width: 100%;
     height: 100vh;

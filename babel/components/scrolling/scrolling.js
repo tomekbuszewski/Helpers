@@ -27,6 +27,10 @@ class Scrolling {
     });
   }
 
+  get scrollTop() {
+    return (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
+  }
+
   viewport(item) {
     let ret = null;
 
