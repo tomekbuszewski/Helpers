@@ -82,8 +82,7 @@ ul {
 .text-columns {
   break-inside: avoid;
 
-  @each $name,
-  $size in $breakpoints {
+  @each $name, $size in $breakpoints {
     @media(min-width: $size) {
       column-gap: map-get($gutters, $name);
     }

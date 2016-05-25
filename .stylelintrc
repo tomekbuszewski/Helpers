@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "number-leading-zero": "never",
+    "selector-pseudo-element-colon-notation": "single",
+    "media-feature-no-missing-punctuation": null,
+    "function-name-case": null,
+    "at-rule-name-space-after": null,
+    "at-rule-empty-line-before": null
+  }
+}

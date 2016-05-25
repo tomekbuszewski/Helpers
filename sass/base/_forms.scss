@@ -84,7 +84,7 @@
     outline: 0;
   }
 
-  @media(min-width: map_get($breakpoints, sm)) {
+  @media (min-width: map_get($breakpoints, sm)) {
     &--stacked {
       #{$root}__label {
         text-align: right;
