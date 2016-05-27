@@ -54,6 +54,7 @@ class Scrolling {
   }
 
   scroll() {
+    // setting scroll direction
     if (_scrolling.lastScroll < _scrolling.scrollTop) {
       _scrolling.scrollDir = 'down';
     } else {
@@ -62,6 +63,7 @@ class Scrolling {
 
     _scrolling.lastScroll = _scrolling.scrollTop;
 
+    // performing callbacks (if any) for items
     helpers.forEach(_scrolling.items, (i) => {
       if (_scrolling.viewport(i.item)) {
         if (i.cb !== null) {
