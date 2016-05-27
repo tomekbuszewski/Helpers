@@ -26,6 +26,33 @@ class Scrolling {
     window.addEventListener('scroll', _scrolling.scroll);
   }
 
+  add(item, cb = null) {
+    helpers.forEach(item, (i) => {
+      let itemCollection = {};
+      itemCollection.item = i;
+      itemCollection.cb = cb;
+
+      this.items.push(itemCollection);
+    });
+
+    this.build();
+  }
+
+  remove(item) {
+    helpers.forEach(this.items, (i) => {
+      helpers.forEach(item, (j) => {
+        if (i.item === j) {
+          const location = this.items.indexOf(i);
+          this.items.splice(location, 1);
+        }
+      });
+    });
+  }
+
+  list() {
+    console.log(this.items);
+  }
+
   scroll() {
     if (_scrolling.lastScroll < _scrolling.scrollTop) {
       _scrolling.scrollDir = 'down';
@@ -76,18 +103,6 @@ class Scrolling {
 
   watchItems() {
     if (this.items.length) this.build();
-  }
-
-  add(item, cb = null) {
-    helpers.forEach(item, (i) => {
-      let itemCollection = {};
-      itemCollection.item = i;
-      itemCollection.cb = cb;
-
-      this.items.push(itemCollection);
-    });
-
-    this.build();
   }
 }
 
