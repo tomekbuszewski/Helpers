@@ -1,3 +1,4 @@
+import smoothScroll from './smooth-scroll';
 import HelpMe from '../helpers/helpers';
 const helpers = new HelpMe();
 
@@ -6,14 +7,20 @@ class Scrolling {
     this.items = [];
     this.windowHeight = window.innerHeight;
     this.offset = 200;
+    this.scrollSpeed = 250;
 
     this.classes = {
-      visible : '-visible',
+      visible: '-visible',
       invisible: '-invisible'
-    }
+    };
   }
 
   build() {
+    smoothScroll.init({
+      speed: this.scrollSpeed,
+      easing: 'easeInQuart'
+    });
+
     window.addEventListener('scroll', _scrolling.scroll);
   }
 
@@ -29,6 +36,10 @@ class Scrolling {
 
   get scrollTop() {
     return (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
+  }
+
+  scrollDirection() {
+    return 'bam';
   }
 
   viewport(item) {

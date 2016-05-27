@@ -16,5 +16,6 @@ _scrolling.add(document.querySelectorAll('.scroll__inner'), function() {
 
 _scrolling.add(document.querySelectorAll('.scroll__inner2'), function() {
   let offset = _scrolling.scrollTop * -.25;
+  console.log(_scrolling.scrollDirection());
   TweenLite.to(this.item, .01, { y: -offset, ease: Power0.easeNone });
 });
