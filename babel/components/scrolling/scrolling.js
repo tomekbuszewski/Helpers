@@ -8,6 +8,8 @@ class Scrolling {
     this.windowHeight = window.innerHeight;
     this.offset = 200;
     this.scrollSpeed = 250;
+    this.lastScroll = 0;
+    this.scrollDir;
 
     this.classes = {
       visible: '-visible',
@@ -25,6 +27,14 @@ class Scrolling {
   }
 
   scroll() {
+    if (_scrolling.lastScroll < _scrolling.scrollTop) {
+      _scrolling.scrollDir = 'down';
+    } else {
+      _scrolling.scrollDir = 'up';
+    }
+
+    _scrolling.lastScroll = _scrolling.scrollTop;
+
     helpers.forEach(_scrolling.items, (i) => {
       if (_scrolling.viewport(i.item)) {
         if (i.cb !== null) {
@@ -38,8 +48,8 @@ class Scrolling {
     return (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
   }
 
-  scrollDirection() {
-    return 'bam';
+  get scrollDirection() {
+    return _scrolling.scrollDir;
   }
 
   viewport(item) {
@@ -49,6 +59,7 @@ class Scrolling {
     if ((this.windowHeight - item.getBoundingClientRect().top) >= `-${this.offset}`) {
       item.classList.add(this.classes.visible);
       item.classList.remove(this.classes.invisible);
+      item.style.visibility = 'visible';
       ret = true;
     }
 
@@ -56,6 +67,7 @@ class Scrolling {
     if (item.getBoundingClientRect().bottom <= 0 || item.getBoundingClientRect().top - this.offset >= this.windowHeight) {
       item.classList.add(this.classes.invisible);
       item.classList.remove(this.classes.visible);
+      item.style.visibility = 'hidden';
       ret = false;
     }
 
