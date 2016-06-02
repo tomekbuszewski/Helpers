@@ -33,6 +33,10 @@
     opacity: 1;
     backface-visibility: hidden;
     transition: opacity .5s linear;
+    font-size: 4em;
+    text-align: center;
+    line-height: 100vh;
+    color: white;
 
     &.visible {
       opacity: 1;

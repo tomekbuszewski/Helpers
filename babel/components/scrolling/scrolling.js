@@ -6,7 +6,7 @@ class Scrolling {
   constructor() {
     this.items = [];
     this.windowHeight = window.innerHeight;
-    this.offset = 200;
+    this.offset = 100;
     this.scrollSpeed = 250;
     this.lastScroll = 0;
     this.scrollDir;
@@ -24,6 +24,15 @@ class Scrolling {
     });
 
     window.addEventListener('scroll', _scrolling.scroll);
+  }
+
+  clear() {
+    this.items = [];
+  }
+
+  destroy() {
+    window.removeEventListener('scroll', _scrolling.scroll);
+    this.items = [];
   }
 
   add(item, cb = null) {
@@ -50,7 +59,7 @@ class Scrolling {
   }
 
   list() {
-    console.log(this.items);
+    console.dir(this.items);
   }
 
   scroll() {
@@ -85,7 +94,7 @@ class Scrolling {
     let ret = null;
 
     // If is even visible
-    if ((this.windowHeight - item.getBoundingClientRect().top) >= `-${this.offset}`) {
+    if ((this.windowHeight - item.getBoundingClientRect().top) >= `-${this.offset}` && item.getBoundingClientRect().bottom > 0) {
       item.classList.add(this.classes.visible);
       item.classList.remove(this.classes.invisible);
       item.style.visibility = 'visible';

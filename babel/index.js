@@ -1,8 +1,8 @@
 require('../sass/style.scss');
 
-import _modals from './components/modals/modals';
+import _modals from './components/modals/modals'; // eslint-disable-line
 
-import _tabs from './components/tabs/tabs';
+import _tabs from './components/tabs/tabs'; // eslint-disable-line
 
 import _scrolling from './components/scrolling/scrolling';
 
@@ -23,27 +23,31 @@ require('gsap/src/uncompressed/plugins/CSSPlugin.js');
 const scrollEls = document.querySelectorAll('.scroll__element');
 const body = document.querySelector('body');
 
+let lim = 0;
 _scrolling.add(scrollEls, function() {
-  let id = _scrolling.items.indexOf(this);
-  const next = id + 1;
-  const prev = id - 1;
-
-  window.scrollTo(0, _scrolling.items[next].item.offsetTop);
-  // const next = this.item.nextElementSibling;
-  // const prev = this.item.previousElementSibling;
-  // let dest = 0;
+  let offset = _scrolling.scrollTop * -.5;
+  // TweenLite.to(this.item, .1, { y: -offset, ease: Quad.easeOut, overwrite: 5 });
+  // let prev = this.item.previousElementSibling;
+  // let next = this.item.nextElementSibling;
   //
-  // if (_scrolling.scrollDirection === 'down') {
-  //   if (next) dest = next.offsetTop;
-  // } else {
-  //   if (prev) dest = prev.offsetTop;
+  // let prevOffset = prev ? prev.offsetTop : null;
+  // let nextOffset = next ? next.offsetTop : null;
+  //
+  // if (lim === 0) {
+  //   console.log(prevOffset, nextOffset);
+  //   if (_scrolling.scrollDirection === 'down') {
+  //     if (nextOffset !== null) { window.scrollTo(0, nextOffset); }
+  //   } else {
+  //     if (prevOffset !== null) { window.scrollTo(0, prevOffset); }
+  //   }
+  //
+  //   lim = 1;
+  //   body.style.overflow = 'hidden';
   // }
   //
-  // window.scrollTo(0, dest);
-  //
-  // // body.style.overflow = 'hidden';
-  //
   // setTimeout(() => {
+  //   lim = 0;
   //   body.style.overflow = 'auto';
+  //   console.log(this.item);
   // }, 1000);
 });
