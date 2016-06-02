@@ -35,11 +35,12 @@ class Scrolling {
     this.items = [];
   }
 
-  add(item, cb = null) {
+  add(item, cb = null, force = false) {
     helpers.forEach(item, (i) => {
       let itemCollection = {};
       itemCollection.item = i;
       itemCollection.cb = cb;
+      itemCollection.force = force;
 
       this.items.push(itemCollection);
     });
@@ -74,10 +75,12 @@ class Scrolling {
 
     // performing callbacks (if any) for items
     helpers.forEach(_scrolling.items, (i) => {
-      if (_scrolling.viewport(i.item)) {
+      if (_scrolling.viewport(i.item) && i.force === false) {
         if (i.cb !== null) {
           i.cb();
         }
+      } else {
+        i.cb();
       }
     });
   }
@@ -88,6 +91,20 @@ class Scrolling {
 
   get scrollDirection() {
     return _scrolling.scrollDir;
+  }
+
+  makeFixed() {
+    let containerHeight = 0;
+    const container = _scrolling.items[0].item.parentNode;
+
+    helpers.forEach(this.items, (i) => {
+      containerHeight += i.item.clientHeight;
+      i.item.style.top = `${i.item.offsetTop}px`;
+      setTimeout(() => { i.item.style.position = 'fixed'; });
+      i.item.style.left = '0';
+    });
+
+    container.style.minHeight = `${containerHeight}px`;
   }
 
   viewport(item) {

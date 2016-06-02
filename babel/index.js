@@ -25,8 +25,8 @@ const body = document.querySelector('body');
 
 let lim = 0;
 _scrolling.add(scrollEls, function() {
-  let offset = _scrolling.scrollTop * -.5;
-  // TweenLite.to(this.item, .1, { y: -offset, ease: Quad.easeOut, overwrite: 5 });
+  let offset = _scrolling.scrollTop;
+  TweenLite.to(this.item, .1, { y: -offset, ease: Quad.easeOut, overwrite: 5 });
   // let prev = this.item.previousElementSibling;
   // let next = this.item.nextElementSibling;
   //
@@ -50,4 +50,5 @@ _scrolling.add(scrollEls, function() {
   //   body.style.overflow = 'auto';
   //   console.log(this.item);
   // }, 1000);
-});
+}, true);
+_scrolling.makeFixed();
