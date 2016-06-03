@@ -1,8 +1,8 @@
 require('../sass/style.scss');
 
 import _modals from './components/modals/modals'; // eslint-disable-line
-
 import _tabs from './components/tabs/tabs'; // eslint-disable-line
+import _trigger from './components/trigger/trigger'; // eslint-disable-line
 
 import _scrolling from './components/scrolling/scrolling';
 

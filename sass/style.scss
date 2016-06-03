@@ -1,7 +1,17 @@
 @import 'seer';
 @import 'theme';
 
-/* Temporary styles to test scrolling */
+/* Temporary styles */
+.trigger {
+  width: 100%;
+  height: 100px;
+  background: #2A546D;
+
+  &--active {
+    background: #81DEF0;
+  }
+}
+
 .scroll {
   width: 100%;
   min-height: 400vh;
