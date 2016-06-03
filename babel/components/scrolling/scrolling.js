@@ -1,3 +1,7 @@
+/*
+TODO: Optinal scope
+*/
+
 import smoothScroll from './smooth-scroll';
 import HelpMe from '../helpers/helpers';
 const helpers = new HelpMe();
