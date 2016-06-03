@@ -23,6 +23,24 @@ class Trigger {
       const targetIdentifier = btn.getAttribute('trigger');
 
       let target;
+      let scope;
+
+      if (btn.hasAttribute('scope')) {
+        switch (btn.getAttribute('scope')) {
+          case 'parent':
+            scope = btn.parentNode;
+            break;
+          case 'grandparent':
+            scope = btn.parentNode.parentNode;
+            break;
+          case 'grandgrandparent':
+            scope = btn.parentNode.parentNode.parentNode;
+            break;
+          default:
+            scope = btn.getAttribute('scope') || document.querySelector('body');
+            break;
+        }
+      }
 
       switch (targetIdentifier) {
         case '':
@@ -32,7 +50,7 @@ class Trigger {
           target = [btn.parentNode];
           break;
         default:
-          target = document.querySelectorAll(targetIdentifier);
+          target = scope.querySelectorAll(targetIdentifier);
           break;
       }
 
