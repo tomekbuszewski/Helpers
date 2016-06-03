@@ -19,11 +19,10 @@ class Trigger {
   run(e) {
     if (e.target.hasAttribute('trigger')) {
       e.preventDefault();
-      let target;
-
       const btn = e.target;
-
       const targetIdentifier = btn.getAttribute('trigger');
+
+      let target;
 
       switch (targetIdentifier) {
         case '':
