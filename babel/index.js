@@ -21,11 +21,10 @@ require('gsap/src/uncompressed/plugins/CSSPlugin.js');
 // });
 
 const scrollEls = document.querySelectorAll('.scroll__element');
-const body = document.querySelector('body');
 
-let lim = 0;
 _scrolling.add(scrollEls, function() {
-  let offset = _scrolling.scrollTop * 1.2;
-  TweenLite.to(this.item, .1, { y: -offset, ease: Quad.easeOut, overwrite: 5 });
+  let offset = _scrolling.scrollTop * -1.2;
+  TweenLite.to(this.item, .1, { y: offset, ease: Quad.easeOut, overwrite: 5 });
+  // this.item.style.transform = `translate3d(0, ${offset}px, 0)`;
 }, true);
 _scrolling.makeFixed();
